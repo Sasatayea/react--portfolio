@@ -89,6 +89,7 @@ const ContactSection = () => {
           {[
             { icon: "fas fa-envelope", label: "memosalah553@gmail.com", href: "mailto:memosalah553@gmail.com" },
             { icon: "fas fa-phone", label: "+201118914120", href: "tel:+201118914120" },
+            { icon: "fas fa-map-marker-alt", label: "Osim, Giza, Egypt", href: "#" },
           ].map((item) => (
             <a
               key={item.label}

@@ -3,40 +3,52 @@ import { useRef, useState, useCallback } from "react";
 
 const projects = [
   {
-    title: "E-Commerce API",
-    subtitle: "Full-Stack Commerce Engine",
-    description: "RESTful E-Commerce API with JWT Auth, Role-Based Authorization, Product Management, Shopping Cart, Order Processing, and Stripe Payments.",
-    tech: ["Java", "Spring Boot", "Spring Security", "MySQL", "JWT", "Stripe"],
+    title: "Movies Web Application",
+    subtitle: "Full-Stack Web App",
+    description:
+      "Built a responsive web app for browsing and managing movie resources from IMDB open API, with secure user authentication and role-based access. Implemented role-based dashboard access (Admin/Users), enabling dynamic content rendering and secure operations.",
+    tech: ["Java", "Spring Boot", "Spring Security", "Spring Data JPA", "Thymeleaf", "MySQL", "Angular"],
     github: "https://github.com/Sasatayea/Spring-boot-Dashboard-api",
-    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&q=80&w=800&h=500",
+    image:
+      "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&q=80&w=800&h=500",
     accent: "neon-blue",
+    featured: true,
   },
   {
-    title: "REST CRUD APIs",
-    subtitle: "Employee Management System",
-    description: "Clean RESTful APIs for CRUD operations with robust service layers, DTO mapping, and comprehensive exception handling.",
-    tech: ["Java", "Spring Boot", "Spring Data JPA", "MySQL"],
+    title: "Books Store",
+    subtitle: "Backend Development",
+    description:
+      "Developed real-time client-server Books application using Spring Data JPA applying Projection, Pagination, Validators, Exception Handling, Logging, ShedLock, Actuator, AWS S3, Swagger UI, AOP, and REST API.",
+    tech: ["Java", "Spring Boot", "Spring Data JPA", "AWS S3", "Swagger UI", "AOP"],
     github: "https://github.com/Sasatayea/data-jpa-books-project",
-    image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80&w=800&h=500",
+    image:
+      "https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&q=80&w=800&h=500",
     accent: "neon-purple",
+    featured: false,
   },
   {
-    title: "Employee MVC System",
-    subtitle: "Role-Based Web Application",
-    description: "Real-time client-server Employee System with Spring Boot MVC, Security, and Data JPA for Login, Registration, and Role-based views.",
-    tech: ["Java", "Spring Boot MVC", "Spring Security", "JPA"],
+    title: "Employee System",
+    subtitle: "Backend Development — MVC",
+    description:
+      "Developed real-time client-server Employee System using Spring Boot MVC, Security, and Data JPA to manage Login, Register, User Operations, and page views based on user role.",
+    tech: ["Java", "Spring Boot MVC", "Spring Security", "Spring Data JPA", "Thymeleaf"],
     github: "https://github.com/Sasatayea/spring-boot-spring-mvc-security",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800&h=500",
+    image:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800&h=500",
     accent: "neon-cyan",
+    featured: false,
   },
   {
     title: "DoctorNow",
     subtitle: "Graduation Project",
-    description: "Mobile application for finding nearest doctor clinics with booking. Integrated Firebase, Stripe payments, and Google Maps API.",
-    tech: ["React Native", "PHP", "Firebase", "Stripe", "Maps API"],
+    description:
+      "Developed a mobile application using React Native to find the nearest doctor clinic and make a booking. Integrated Firebase, Stripe payments, Google Maps API, PHP backend, and MySQL database.",
+    tech: ["React Native", "PHP", "Firebase", "MySQL", "Stripe", "Google Maps API"],
     github: "https://github.com/amrsheeka/Doctor_Now",
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=800&h=500",
+    image:
+      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=800&h=500",
     accent: "neon-pink",
+    featured: false,
   },
 ];
 
@@ -54,7 +66,14 @@ const accentText: Record<string, string> = {
   "neon-pink": "text-neon-pink",
 };
 
-const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: number }) => {
+const accentBg: Record<string, string> = {
+  "neon-blue": "bg-neon-blue/10 text-neon-blue border-neon-blue/20",
+  "neon-purple": "bg-neon-purple/10 text-neon-purple border-neon-purple/20",
+  "neon-cyan": "bg-neon-cyan/10 text-neon-cyan border-neon-cyan/20",
+  "neon-pink": "bg-neon-pink/10 text-neon-pink border-neon-pink/20",
+};
+
+const ProjectCard = ({ project, index }: { project: (typeof projects)[0]; index: number }) => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const cardRef = useRef<HTMLDivElement>(null);
@@ -76,12 +95,18 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: n
       initial={{ opacity: 0, y: 50 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+      className={project.featured ? "md:col-span-2" : ""}
     >
       <div
         ref={cardRef}
         onMouseMove={handleMove}
-        onMouseLeave={() => { setTilt({ x: 0, y: 0 }); setGlare({ x: 50, y: 50 }); }}
-        className={`hoverable glass rounded-2xl overflow-hidden ${accentBorder[project.accent]} transition-all duration-500 group`}
+        onMouseLeave={() => {
+          setTilt({ x: 0, y: 0 });
+          setGlare({ x: 50, y: 50 });
+        }}
+        className={`hoverable glass rounded-2xl overflow-hidden ${accentBorder[project.accent]} transition-all duration-500 group ${
+          project.featured ? "md:grid md:grid-cols-[1.1fr_0.9fr]" : ""
+        }`}
         style={{
           transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
           transition: "transform 0.4s cubic-bezier(0.03, 0.98, 0.52, 0.99)",
@@ -95,7 +120,7 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: n
           }}
         />
 
-        <div className="relative overflow-hidden h-48 md:h-56">
+        <div className={`relative overflow-hidden ${project.featured ? "h-full min-h-[240px]" : "h-48 md:h-56"}`}>
           <img
             src={project.image}
             alt={project.title}
@@ -103,6 +128,17 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: n
             loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
+
+          {/* Featured badge */}
+          {project.featured && (
+            <div className="absolute top-4 left-4 z-10">
+              <span className={`px-3 py-1 rounded-full text-[10px] font-mono tracking-wider uppercase border ${accentBg[project.accent]}`}>
+                <i className="fas fa-star mr-1 text-[8px]" />
+                Featured
+              </span>
+            </div>
+          )}
+
           <div className="absolute top-4 right-4 z-10">
             <a
               href={project.github}
@@ -120,15 +156,10 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: n
             {project.subtitle}
           </p>
           <h3 className="font-heading text-xl md:text-2xl mb-3">{project.title}</h3>
-          <p className="text-muted-foreground text-sm leading-relaxed mb-5">
-            {project.description}
-          </p>
+          <p className="text-muted-foreground text-sm leading-relaxed mb-5">{project.description}</p>
           <div className="flex flex-wrap gap-2">
             {project.tech.map((t) => (
-              <span
-                key={t}
-                className="text-xs font-mono text-text-dim bg-secondary/50 px-2.5 py-1 rounded-md"
-              >
+              <span key={t} className="text-xs font-mono text-text-dim bg-secondary/50 px-2.5 py-1 rounded-md">
                 {t}
               </span>
             ))}

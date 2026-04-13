@@ -14,7 +14,7 @@ const skillCategories = [
     ],
   },
   {
-    title: "Frameworks",
+    title: "Frameworks & Libraries",
     icon: "fas fa-layer-group",
     color: "neon-purple",
     skills: [
@@ -25,6 +25,7 @@ const skillCategories = [
       { icon: "fas fa-project-diagram", name: "Hibernate" },
       { icon: "fas fa-plug", name: "JDBC" },
       { icon: "fas fa-file-code", name: "Thymeleaf" },
+      { icon: "fab fa-bootstrap", name: "Bootstrap" },
     ],
   },
   {
@@ -35,13 +36,14 @@ const skillCategories = [
       { icon: "fas fa-cubes", name: "OOP" },
       { icon: "fas fa-stream", name: "DSA" },
       { icon: "fas fa-exchange-alt", name: "RESTful APIs" },
+      { icon: "fas fa-sitemap", name: "MVC" },
       { icon: "fas fa-puzzle-piece", name: "Design Patterns" },
-      { icon: "fas fa-check-double", name: "SOLID" },
+      { icon: "fas fa-check-double", name: "SOLID Principles" },
       { icon: "fas fa-broom", name: "Clean Code" },
     ],
   },
   {
-    title: "Tools",
+    title: "Tools & Platforms",
     icon: "fas fa-wrench",
     color: "neon-pink",
     skills: [
@@ -50,6 +52,15 @@ const skillCategories = [
       { icon: "fas fa-database", name: "MySQL" },
     ],
   },
+];
+
+const softSkills = [
+  { icon: "fas fa-puzzle-piece", name: "Problem Solving" },
+  { icon: "fas fa-users", name: "Collaboration" },
+  { icon: "fas fa-clock", name: "Time Management" },
+  { icon: "fas fa-comments", name: "Communication" },
+  { icon: "fas fa-flag", name: "Leadership" },
+  { icon: "fas fa-sync-alt", name: "Adaptability" },
 ];
 
 const colorMap: Record<string, string> = {
@@ -113,7 +124,8 @@ const SkillsSection = () => {
           <span className="section-line" />
         </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Technical Skills */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           {skillCategories.map((cat, catIdx) => (
             <motion.div
               key={cat.title}
@@ -153,6 +165,41 @@ const SkillsSection = () => {
             </motion.div>
           ))}
         </div>
+
+        {/* Soft Skills */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.7 }}
+        >
+          <TiltCard className="hoverable">
+            <div className="glass rounded-2xl p-6 md:p-8 hover:glow-border transition-all duration-500 relative overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-br from-neon-blue/10 via-neon-purple/5 to-neon-cyan/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="text-neon-blue text-sm">
+                    <i className="fas fa-heart" />
+                  </span>
+                  <h3 className="font-heading text-lg">Soft Skills</h3>
+                </div>
+                <div className="flex flex-wrap gap-3">
+                  {softSkills.map((s, sIdx) => (
+                    <motion.span
+                      key={s.name}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={inView ? { opacity: 1, scale: 1 } : {}}
+                      transition={{ duration: 0.3, delay: 0.7 + 0.06 * sIdx }}
+                      className="glass-subtle px-4 py-2 rounded-full text-xs md:text-sm text-muted-foreground flex items-center gap-2 hover:text-foreground hover:border-neon-purple/30 transition-all duration-300"
+                    >
+                      <i className={`${s.icon} text-xs text-neon-purple`} />
+                      {s.name}
+                    </motion.span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </TiltCard>
+        </motion.div>
       </div>
     </section>
   );

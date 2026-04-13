@@ -26,6 +26,10 @@ const Index = () => {
           <CustomCursor />
           <ScrollProgress />
           <div className="noise-overlay" />
+          <div className="animated-grid" />
+          <div className="gradient-orb gradient-orb-1" />
+          <div className="gradient-orb gradient-orb-2" />
+          <div className="gradient-orb gradient-orb-3" />
 
           <Suspense fallback={null}>
             <Scene3D />

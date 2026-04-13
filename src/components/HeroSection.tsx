@@ -41,10 +41,12 @@ const HeroSection = () => (
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 3.2 }}
-          className="max-w-[520px] text-base md:text-lg text-muted-foreground leading-relaxed mb-12"
+          className="max-w-[560px] text-base md:text-lg text-muted-foreground leading-relaxed mb-12"
         >
-          I architect scalable backend systems with Java & Spring Boot.
-          Passionate about clean code, performance, and building things that matter.
+          Backend-focused Software Engineer skilled in{" "}
+          <span className="text-foreground font-medium">Java</span>,{" "}
+          <span className="text-foreground font-medium">Spring Boot</span>, and scalable systems.
+          Passionate about clean architecture, performance optimization, and continuous learning.
         </motion.p>
 
         <motion.div
@@ -66,6 +68,15 @@ const HeroSection = () => (
           >
             <i className="fas fa-envelope text-xs" />
             Get in Touch
+          </a>
+          <a
+            href="https://github.com/Sasatayea"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hoverable inline-flex items-center gap-2 px-7 py-3.5 rounded-full glass text-foreground font-medium text-sm hover:glow-border transition-all duration-500"
+          >
+            <i className="fab fa-github text-xs" />
+            GitHub
           </a>
         </motion.div>
       </motion.div>

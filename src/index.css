@@ -278,3 +278,148 @@
 .font-mono {
   font-family: 'JetBrains Mono', monospace;
 }
+
+/* ===== ANIMATED BACKGROUND GRID ===== */
+.animated-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(hsl(var(--neon-blue) / 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(var(--neon-blue) / 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 30%, transparent 90%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 30%, transparent 90%);
+}
+
+/* ===== MORPHING GRADIENT ORBS ===== */
+.gradient-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 0;
+  animation: orb-float 20s ease-in-out infinite;
+}
+.gradient-orb-1 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, hsl(var(--neon-blue) / 0.08), transparent 70%);
+  top: -10%;
+  right: -5%;
+  animation-delay: 0s;
+}
+.gradient-orb-2 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, hsl(var(--neon-purple) / 0.06), transparent 70%);
+  bottom: 10%;
+  left: -8%;
+  animation-delay: -7s;
+}
+.gradient-orb-3 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, hsl(var(--neon-cyan) / 0.05), transparent 70%);
+  top: 40%;
+  right: 20%;
+  animation-delay: -14s;
+}
+
+@keyframes orb-float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(30px, -40px) scale(1.05); }
+  50% { transform: translate(-20px, 20px) scale(0.95); }
+  75% { transform: translate(15px, 30px) scale(1.02); }
+}
+
+/* ===== TYPING CURSOR ===== */
+.typing-cursor::after {
+  content: '|';
+  animation: blink 1s step-end infinite;
+  color: hsl(var(--neon-blue));
+  margin-left: 2px;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ===== TEXT SHIMMER ===== */
+.text-shimmer {
+  background: linear-gradient(
+    120deg,
+    hsl(var(--foreground)) 0%,
+    hsl(var(--neon-blue)) 25%,
+    hsl(var(--foreground)) 50%,
+    hsl(var(--neon-purple)) 75%,
+    hsl(var(--foreground)) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 6s linear infinite;
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ===== CARD HOVER LIFT ===== */
+.card-lift {
+  transition: transform 0.4s cubic-bezier(0.03, 0.98, 0.52, 0.99), box-shadow 0.4s ease;
+}
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -12px hsl(var(--neon-blue) / 0.1);
+}
+
+/* ===== STAGGERED REVEAL ===== */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== PULSE RING ===== */
+.pulse-ring {
+  position: relative;
+}
+.pulse-ring::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid hsl(var(--neon-cyan) / 0.4);
+  animation: pulse-ring-anim 2s ease-out infinite;
+}
+@keyframes pulse-ring-anim {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* ===== HOVER LINE ANIMATION ===== */
+.hover-line {
+  position: relative;
+  display: inline-block;
+}
+.hover-line::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, hsl(var(--neon-cyan)), hsl(var(--neon-blue)));
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hover-line:hover::after {
+  width: 100%;
+}
